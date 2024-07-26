@@ -1,0 +1,34 @@
+Project:
+  ProjectName : SauceLab
+
+Pytest:
+  IsDryRun : false
+  IsFailureRerun : false
+  ParallelCount : 5
+  IsParallelGroupFile : false
+  DeleteConftest : true
+  Tag : add_cart
+
+Browser:
+  IsHeadless : false
+  DefaultBrowser : Chrome
+  IsMultiBrowser : false
+  DeleteDownloads : true
+  MultiBrowserList : 
+    - Chrome
+    - Firefox
+    - Edge
+    - Safari
+
+Allure:
+  Generate : true
+  AutoOpenServer : false
+
+URL:
+  SauceLab : https://saucedemo.com
+  SelDev : https://www.selenium.dev/downloads/
+
+Credentials:
+  UserName : standard_user
+  Password : secret_sauce
+
