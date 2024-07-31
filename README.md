@@ -10,6 +10,7 @@ AutoVD-Python-Selenium is a Python-based automation framework designed for web a
   - [Writing a Test Case](#writing-a-test-case)
 - [Configuration](#configuration)
 - [Running Tests](#running-tests)
+- [VD Report](#vd-report)
 - [License](#license)
 
 ## Installation
@@ -129,6 +130,15 @@ To run your tests, use the `pytest` command:
 ```bash
 python runner.py
 ```
+
+## VD Report
+
+The framework generates two types of reports:
+
+1. **Current Execution Report**: A detailed report of the most recent test execution.
+2. **Trend Report**: A report showing trends over time, allowing you to filter results by date and time for detailed analysis.
+
+![VD Trends](vd_trends.gif)
 
 ## License
 
