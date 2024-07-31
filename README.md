@@ -2,6 +2,15 @@
 
 AutoVD-Python-Selenium is a Python-based automation framework designed for web and API testing. It leverages Selenium WebDriver for browser automation and provides a structured approach to creating page objects and test cases.
 
+## Author
+
+```yaml
+Name : Vignesh D
+Location : Chennai, India
+```
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vigneshdhakshnamoorthy/)
+
 ## Table of Contents
 
 - [Installation](#installation)
