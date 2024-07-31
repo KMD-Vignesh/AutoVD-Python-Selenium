@@ -82,7 +82,45 @@ def test_add_cart_badge_validation(selenium: SeleniumVD) -> None:
 
 ## Configuration
 
-Configurations such as URLs and credentials are managed through the `vd_config.yml`(setting/config/vd_config.yml). Ensure you have a configuration file 
+Configurations such as URLs and credentials are managed through the `vd_config.yml`(setting/config/vd_config.yml). Ensure you have a configuration file
+
+```yaml
+Project:
+  ProjectName : SauceLab
+
+Pytest:
+  IsDryRun : false
+  IsFailureRerun : false
+  ParallelCount : 5
+  IsParallelGroupFile : false
+  DeleteConftest : true
+  Tag : add_cart
+
+Browser:
+  IsHeadless : false
+  DefaultBrowser : Chrome
+  IsMultiBrowser : false
+  DeleteDownloads : true
+  MultiBrowserList : 
+    - Chrome
+    - Firefox
+    - Edge
+    - Safari
+
+Allure:
+  Generate : true
+  AutoOpenServer : false
+
+URL:
+  SauceLab : https://saucedemo.com
+  SelDev : https://www.selenium.dev/downloads/
+
+Credentials:
+  UserName : standard_user
+  Password : secret_sauce
+
+
+```
 
 ## Running Tests
 
