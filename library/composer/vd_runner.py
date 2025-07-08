@@ -29,14 +29,13 @@ class RunnerVD:
         PathVD.delete_directory(directory_path=PathVD.allure_html_path())
         PathVD.delete_directory(directory_path=PathVD.vd_report_logs_path())
         PathVD.download_path()
-    
+
     @staticmethod
     def _auto_conftest_file() -> None:
         if not PathVD.conftest_file_path().exists():
             multiline_string = 'import sys\nsys.path.append(".")\nfrom library.interface.vd_base import *  # noqa: F403'
             with open(file=PathVD.conftest_file_path(), mode="w") as file:
                 file.write(multiline_string)
-
 
     @staticmethod
     def _post_cleanup() -> None:
@@ -47,7 +46,6 @@ class RunnerVD:
         if ConfigVD.Pytest.is_delete_conftest():
             PathVD.delete_file(PathVD.conftest_file_path())
 
-
     @staticmethod
     def _read_failure_rerun_file() -> str:
         failure_json_path = PathVD.failure_json_file_path()
@@ -55,8 +53,8 @@ class RunnerVD:
         if failure_json_path.exists() and ConfigVD.Pytest.is_failure_rerun():
             with open(file=PathVD.failure_json_file_path(), mode="r") as f:
                 failure_json = json.load(f)
-        return ' '.join(failure_json)
-    
+        return " ".join(failure_json)
+
     @staticmethod
     def _get_commands(
         allure_result: PathVD,
@@ -70,10 +68,17 @@ class RunnerVD:
             if ConfigVD.Pytest.is_dry_run()
             else ""
         )
-        failure_rerun_command: str = RunnerVD._read_failure_rerun_file() if not ConfigVD.Pytest.is_dry_run() else ""
+        failure_rerun_command: str = (
+            RunnerVD._read_failure_rerun_file()
+            if not ConfigVD.Pytest.is_dry_run()
+            else ""
+        )
         parallel_count: int = ConfigVD.Pytest.get_parallel_count()
         tag_name: str = (
-            ConfigVD.Pytest.get_tag() if not ConfigVD.Pytest.is_dry_run() and not ConfigVD.Pytest.is_failure_rerun() else ""
+            ConfigVD.Pytest.get_tag()
+            if not ConfigVD.Pytest.is_dry_run()
+            and not ConfigVD.Pytest.is_failure_rerun()
+            else ""
         )
 
         output_command: str = "--capture=tee-sys --tb=no"
@@ -114,7 +119,9 @@ class RunnerVD:
     def _get_dry_run_count() -> int:
         with open(file=PathVD.pytest_dry_run_file_path(), mode="r") as file:
             content: str = file.read()
-        test_case_pattern: re.Pattern[str] = re.compile(pattern=r"<Function\s+\w+\[?\w*]?>")
+        test_case_pattern: re.Pattern[str] = re.compile(
+            pattern=r"<Function\s+\w+\[?\w*]?>"
+        )
         matches: list[str] = test_case_pattern.findall(string=content)
         test_case_count: int = len(matches)
         return test_case_count
