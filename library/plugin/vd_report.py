@@ -12,16 +12,16 @@ class ReportVD:
     @staticmethod
     def read_screen_shot_json_files():
         directory: PathVD = PathVD.failure_screenshot_path()
-        data:dict = {}
-        
-        for filepath in PathVD(directory).rglob('*.json'):
-            with filepath.open(mode='r') as file:
+        data: dict = {}
+
+        for filepath in PathVD(directory).rglob("*.json"):
+            with filepath.open(mode="r") as file:
                 content = json.load(file)
                 if len(content) == 1:
                     key = list(content.keys())[0]
                     value = content[key]
                     data[key] = value
-                    
+
         return data
 
     @staticmethod
@@ -54,16 +54,10 @@ class ReportVD:
                         for state in ["setup", "call", "teardown"]:
                             if state in tc_li:
                                 if "stderr" in tc_li[state]:
-                                    logs.extend(
-                                        str(object=tc_li[state]["stderr"]).split(
-                                            sep="\n"
-                                        )
-                                    )
+                                    logs.extend(str(object=tc_li[state]["stderr"]).split(sep="\n"))
                                 if "longrepr" in tc_li[state]:
                                     reason.extend(
-                                        str(object=tc_li[state]["longrepr"]).split(
-                                            sep="\n"
-                                        )
+                                        str(object=tc_li[state]["longrepr"]).split(sep="\n")
                                     )
                         logs = [item for item in logs if item]
                         reason = [item for item in reason if item]
@@ -157,9 +151,7 @@ class ReportVD:
             date_str: str = list(json_dict.keys())[0]
             date_obj: datetime = datetime.strptime(date_str, "%d/%m/%y")
             date_json: str = date_obj.strftime(format="%d / %b / %Y")
-            time_obj: datetime = datetime.strptime(
-                list(json_dict[date_str].keys())[0], "%H:%M:%S"
-            )
+            time_obj: datetime = datetime.strptime(list(json_dict[date_str].keys())[0], "%H:%M:%S")
             time_json: str = time_obj.strftime(format="%I:%M:%S / %p")
             mid_html: str = f"""
                                 <div id="main">

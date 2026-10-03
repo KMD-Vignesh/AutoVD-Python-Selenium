@@ -62,27 +62,19 @@ class PathVD(Path):
 
     @staticmethod
     def allure_html_history_path() -> "PathVD":
-        return PathVD.create_directory(
-            directory_path=PathVD.allure_html_path() / "history"
-        )
+        return PathVD.create_directory(directory_path=PathVD.allure_html_path() / "history")
 
     @staticmethod
     def allure_logs_history_path() -> "PathVD":
-        return PathVD.create_directory(
-            directory_path=PathVD.allure_logs_path() / "history"
-        )
+        return PathVD.create_directory(directory_path=PathVD.allure_logs_path() / "history")
 
     @staticmethod
     def allure_html_data_path() -> "PathVD":
-        return PathVD.create_directory(
-            directory_path=PathVD.allure_html_path() / "data"
-        )
+        return PathVD.create_directory(directory_path=PathVD.allure_html_path() / "data")
 
     @staticmethod
     def allure_html_data_tc_path() -> "PathVD":
-        return PathVD.create_directory(
-            directory_path=PathVD.allure_html_data_path() / "test-cases"
-        )
+        return PathVD.create_directory(directory_path=PathVD.allure_html_data_path() / "test-cases")
 
     @staticmethod
     def allure_suites_csv_path() -> "PathVD":
@@ -174,13 +166,11 @@ class PathVD(Path):
 
     @staticmethod
     def failure_screenshot_path() -> "PathVD":
-        return PathVD.create_directory(
-            directory_path=PathVD.vd_report_path() / "screenshot"
-        )
+        return PathVD.create_directory(directory_path=PathVD.vd_report_path() / "screenshot")
 
     @staticmethod
     def failure_timestamp_png_path(name: str) -> "PathVD":
-        d_time: str = f"{name}_{datetime.now().strftime(format="%d_%m_%y_%H_%M_%S")}"
+        d_time: str = f"{name}_{datetime.now().strftime(format='%d_%m_%y_%H_%M_%S')}"
         return PathVD.failure_screenshot_path() / f"{d_time}.png"
 
     """ SETTING SUB ROOT """

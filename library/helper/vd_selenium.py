@@ -90,18 +90,14 @@ class SeleniumVD:
         browser_name: str = ConfigVD.Browser.get_default_browser(),
     ) -> Self:
         browser_name = browser_name.title()
-        self.driver_instances[instance_name] = BrowserVD.get_browser(
-            browser_name=browser_name
-        )
+        self.driver_instances[instance_name] = BrowserVD.get_browser(browser_name=browser_name)
         self.browser_name_instances[instance_name] = browser_name
         return self.switch_driver_instance(instance_name=instance_name)
 
     def switch_driver_instance(self, instance_name: str = "Default") -> Self:
         if instance_name in self.driver_instances:
             self.set_driver(driver=self.driver_instances[instance_name])
-            self.set_browser_name(
-                browser_name=self.browser_name_instances[instance_name]
-            )
+            self.set_browser_name(browser_name=self.browser_name_instances[instance_name])
             self.log(message=f"Switched to Instance Name - {instance_name}")
         else:
             self.log(message=f"Instance Name - {instance_name} Not Available")
@@ -147,9 +143,7 @@ class SeleniumVD:
         for key, value in self.driver_instances.items():
             if value:
                 value.quit()
-                self.log(
-                    message=f"\nTeardown : {self.browser_name_instances[key]} Closing"
-                )
+                self.log(message=f"\nTeardown : {self.browser_name_instances[key]} Closing")
         return self
 
     def _flush_log_json(self) -> Self:
@@ -250,9 +244,7 @@ class SeleniumVD:
         self.switch_window(window=self.window_handles()[-1])
         return self
 
-    def is_present(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> bool:
+    def is_present(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> bool:
         for _ in range(wait_seconds + 1):
             if len(self.get_driver().find_elements(*locator)) > 0:
                 return True
@@ -260,9 +252,7 @@ class SeleniumVD:
                 self.sleep(seconds=1)
         return False
 
-    def is_not_present(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> bool:
+    def is_not_present(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> bool:
         for _ in range(wait_seconds + 1):
             if len(self.get_driver().find_elements(*locator)) == 0:
                 return True
@@ -312,9 +302,7 @@ class SeleniumVD:
     def type(
         self, locator: Locator, type_value: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.find_element(locator=locator, wait_seconds=wait_seconds).send_keys(
-            type_value
-        )
+        self.find_element(locator=locator, wait_seconds=wait_seconds).send_keys(type_value)
         return self
 
     def js_type(
@@ -386,57 +374,55 @@ class SeleniumVD:
     def select_dropdown_by_index(
         self, locator: Locator, index: int, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).select_by_index(index=index)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).select_by_index(
+            index=index
+        )
         return self
 
     def select_dropdown_by_value(
         self, locator: Locator, value: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).select_by_value(value=value)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).select_by_value(
+            value=value
+        )
         return self
 
     def select_dropdown_by_visible_text(
         self, locator: Locator, text: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).select_by_visible_text(text=text)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).select_by_visible_text(
+            text=text
+        )
         return self
 
     def deselect_dropdown_by_index(
         self, locator: Locator, index: int, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).deselect_by_index(index=index)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).deselect_by_index(
+            index=index
+        )
         return self
 
     def deselect_dropdown_by_value(
         self, locator: Locator, value: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).deselect_by_value(value=value)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).deselect_by_value(
+            value=value
+        )
         return self
 
     def deselect_dropdown_by_visible_text(
         self, locator: Locator, text: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> Self:
-        self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).deselect_by_visible_text(text=text)
+        self.select_dropdown(locator=locator, wait_seconds=wait_seconds).deselect_by_visible_text(
+            text=text
+        )
         return self
 
     def all_selected_options(
         self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
     ) -> list[WebElement]:
-        return self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).all_selected_options
+        return self.select_dropdown(locator=locator, wait_seconds=wait_seconds).all_selected_options
 
     def first_selected_option(
         self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
@@ -448,9 +434,7 @@ class SeleniumVD:
     def is_select_dropdown_multiple(
         self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
     ) -> bool | str:
-        return self.select_dropdown(
-            locator=locator, wait_seconds=wait_seconds
-        ).is_multiple
+        return self.select_dropdown(locator=locator, wait_seconds=wait_seconds).is_multiple
 
     def select_drodown_options_list_element(
         self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
@@ -467,26 +451,14 @@ class SeleniumVD:
             )
         ]
 
-    def is_displayed(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> bool:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).is_displayed()
+    def is_displayed(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> bool:
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).is_displayed()
 
-    def is_enabled(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> bool:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).is_enabled()
+    def is_enabled(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> bool:
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).is_enabled()
 
-    def is_selected(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> bool:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).is_selected()
+    def is_selected(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> bool:
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).is_selected()
 
     def get_attribute(
         self,
@@ -494,9 +466,9 @@ class SeleniumVD:
         attribute_name: str,
         wait_seconds: int = ValueVD.wait_sec(),
     ) -> str | None:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).get_attribute(name=attribute_name)
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).get_attribute(
+            name=attribute_name
+        )
 
     def get_dom_attribute(
         self,
@@ -504,9 +476,9 @@ class SeleniumVD:
         attribute_name: str,
         wait_seconds: int = ValueVD.wait_sec(),
     ) -> str:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).get_dom_attribute(name=attribute_name)
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).get_dom_attribute(
+            name=attribute_name
+        )
 
     def change_attribute_value(
         self,
@@ -542,9 +514,9 @@ class SeleniumVD:
         property_name: str,
         wait_seconds: int = ValueVD.wait_sec(),
     ) -> str:
-        return self.find_element(
-            locator=locator, wait_seconds=wait_seconds
-        ).value_of_css_property(property_name=property_name)
+        return self.find_element(locator=locator, wait_seconds=wait_seconds).value_of_css_property(
+            property_name=property_name
+        )
 
     def get_text(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> str:
         return self.find_element(locator=locator, wait_seconds=wait_seconds).text
@@ -552,17 +524,12 @@ class SeleniumVD:
     def get_text_elements(
         self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
     ) -> list[str]:
-        return [
-            ele.text
-            for ele in self.find_elements(locator=locator, wait_seconds=wait_seconds)
-        ]
+        return [ele.text for ele in self.find_elements(locator=locator, wait_seconds=wait_seconds)]
 
     def is_text_in_elements(
         self, locator: Locator, element_text: str, wait_seconds: int = ValueVD.wait_sec()
     ) -> bool:
-        return element_text in self.get_text_elements(
-            locator=locator, wait_seconds=wait_seconds
-        )
+        return element_text in self.get_text_elements(locator=locator, wait_seconds=wait_seconds)
 
     def is_text_contains_in_elements(
         self,
@@ -572,9 +539,7 @@ class SeleniumVD:
     ) -> bool:
         return any(
             text_contains in element
-            for element in self.get_text_elements(
-                locator=locator, wait_seconds=wait_seconds
-            )
+            for element in self.get_text_elements(locator=locator, wait_seconds=wait_seconds)
         )
 
     def find_element_with_text(
@@ -588,9 +553,7 @@ class SeleniumVD:
                 return element
         return None
 
-    def scroll_into_view(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> Self:
+    def scroll_into_view(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> Self:
         self.execute_script(
             "arguments[0].scrollIntoView(true);",
             self.find_element(locator=locator, wait_seconds=wait_seconds),
@@ -605,22 +568,14 @@ class SeleniumVD:
         )
         return self
 
-    def scroll_element_xy(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> Self:
-        ele_loc: dict[str, int] = self.element_location(
-            locator=locator, wait_seconds=wait_seconds
-        )
-        return self.scroll_x_y(
-            x=ele_loc["x"], y=0 if ele_loc["y"] <= 60 else ele_loc["y"] - 60
-        )
+    def scroll_element_xy(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> Self:
+        ele_loc: dict[str, int] = self.element_location(locator=locator, wait_seconds=wait_seconds)
+        return self.scroll_x_y(x=ele_loc["x"], y=0 if ele_loc["y"] <= 60 else ele_loc["y"] - 60)
 
     def action_chains(self) -> ActionChains:
         return ActionChains(driver=self.get_driver())
 
-    def action_click(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> Self:
+    def action_click(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> Self:
         self.action_chains().click(
             on_element=self.find_element(locator=locator, wait_seconds=wait_seconds)
         )
@@ -642,9 +597,7 @@ class SeleniumVD:
         )
         return self
 
-    def action_double_click(
-        self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()
-    ) -> Self:
+    def action_double_click(self, locator: Locator, wait_seconds: int = ValueVD.wait_sec()) -> Self:
         self.action_chains().double_click(
             on_element=self.find_element(locator=locator, wait_seconds=wait_seconds)
         )
@@ -696,9 +649,7 @@ class SeleniumVD:
         return "".join(random.choices(population=string.ascii_letters, k=length))
 
     def get_random_text_with_number(self, length: int) -> str:
-        return "".join(
-            random.choices(population=string.ascii_letters + string.digits, k=length)
-        )
+        return "".join(random.choices(population=string.ascii_letters + string.digits, k=length))
 
     def get_number_from_text(self, text: str) -> int:
         numbers: str = re.sub(pattern=r"\D", repl="", string=text)
@@ -717,9 +668,7 @@ class SeleniumVD:
         return self.get_driver().save_screenshot(filename=str(object=filename))
 
     def save_element_screenshot(self, locator: Locator, filename: str | PathVD) -> bool:
-        return self.find_element(locator=locator).screenshot(
-            filename=str(object=filename)
-        )
+        return self.find_element(locator=locator).screenshot(filename=str(object=filename))
 
     def get_element_screenshot_as_png(self, locator: Locator) -> bytes:
         return self.find_element(locator=locator).screenshot_as_png

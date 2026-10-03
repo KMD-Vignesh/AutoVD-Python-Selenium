@@ -25,21 +25,15 @@ class BrowserVD:
                 chrome_options = ChromeOptions()
                 if headless:
                     chrome_options.add_argument(argument="--headless")
-                chrome_prefs: dict[str, str] = {
-                    "download.default_directory": download_dir
-                }
+                chrome_prefs: dict[str, str] = {"download.default_directory": download_dir}
                 chrome_options.add_experimental_option(name="prefs", value=chrome_prefs)
                 return Chrome(service=ChromeService(), options=chrome_options)
             case "firefox":
                 firefox_options = FirefoxOptions()
                 if headless:
                     firefox_options.add_argument(argument="--headless")
-                firefox_options.set_preference(
-                    name="browser.download.folderList", value=2
-                )
-                firefox_options.set_preference(
-                    name="browser.download.dir", value=download_dir
-                )
+                firefox_options.set_preference(name="browser.download.folderList", value=2)
+                firefox_options.set_preference(name="browser.download.dir", value=download_dir)
                 firefox_options.set_preference(
                     name="browser.helperApps.neverAsk.saveToDisk",
                     value="application/pdf",
@@ -49,18 +43,14 @@ class BrowserVD:
                 edge_options = EdgeOptions()
                 if headless:
                     edge_options.add_argument(argument="--headless")
-                edge_prefs: dict[str, str] = {
-                    "download.default_directory": download_dir
-                }
+                edge_prefs: dict[str, str] = {"download.default_directory": download_dir}
                 edge_options.add_experimental_option(name="prefs", value=edge_prefs)
                 return Edge(service=EdgeService(), options=edge_options)
             case "safari":
                 safari_options = SafariOptions()
                 if headless:
                     print("Safari does not support headless mode.")
-                print(
-                    "Note: Setting download directory is not supported by Safari WebDriver."
-                )
+                print("Note: Setting download directory is not supported by Safari WebDriver.")
                 return Safari(service=SafariService(), options=safari_options)
             case _:
                 raise ValueError(f"Unsupported browser: {browser_name}")

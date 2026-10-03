@@ -39,9 +39,7 @@ class RunnerVD:
 
     @staticmethod
     def _post_cleanup() -> None:
-        PathVD.remove_directory(
-            folder_path=PathVD.project_path(), name_contains="__pycache__"
-        )
+        PathVD.remove_directory(folder_path=PathVD.project_path(), name_contains="__pycache__")
         PathVD.delete_directory(directory_path=PathVD.project_path() / ".pytest_cache")
         if ConfigVD.Pytest.is_delete_conftest():
             PathVD.delete_file(PathVD.conftest_file_path())
@@ -69,15 +67,12 @@ class RunnerVD:
             else ""
         )
         failure_rerun_command: str = (
-            RunnerVD._read_failure_rerun_file()
-            if not ConfigVD.Pytest.is_dry_run()
-            else ""
+            RunnerVD._read_failure_rerun_file() if not ConfigVD.Pytest.is_dry_run() else ""
         )
         parallel_count: int = ConfigVD.Pytest.get_parallel_count()
         tag_name: str = (
             ConfigVD.Pytest.get_tag()
-            if not ConfigVD.Pytest.is_dry_run()
-            and not ConfigVD.Pytest.is_failure_rerun()
+            if not ConfigVD.Pytest.is_dry_run() and not ConfigVD.Pytest.is_failure_rerun()
             else ""
         )
 
@@ -87,17 +82,13 @@ class RunnerVD:
         pytest_xml_command: str = f"--junitxml={pytest_xml_report}"
         parallel_command: str = f"-n {parallel_count}" if parallel_count > 1 else ""
         parallel_group_command: str = (
-            "--dist loadfile"
-            if ConfigVD.Pytest.is_parallel_group_by_file()
-            else "--dist worksteal"
+            "--dist loadfile" if ConfigVD.Pytest.is_parallel_group_by_file() else "--dist worksteal"
         )
         tag_command: str = f"-m {tag_name}" if tag_name else ""
         allure_json_command: str = f"--alluredir={allure_result} --allure-no-capture"
 
         pytest_command: str = f"pytest {dry_run_command} {failure_rerun_command} {tag_command} {output_command} {allure_json_command} {pytest_html_command} {pytest_json_command} {pytest_xml_command} {parallel_command} {parallel_group_command}"
-        allure_report_command: str = (
-            f"allure generate {allure_result} -o {allure_report} --clean"
-        )
+        allure_report_command: str = f"allure generate {allure_result} -o {allure_report} --clean"
         commands: list[str] = []
         commands.append(pytest_command)
         if ConfigVD.Allure.is_allure_generate() and not ConfigVD.Pytest.is_dry_run():
@@ -119,17 +110,13 @@ class RunnerVD:
     def _get_dry_run_count() -> int:
         with open(file=PathVD.pytest_dry_run_file_path(), mode="r") as file:
             content: str = file.read()
-        test_case_pattern: re.Pattern[str] = re.compile(
-            pattern=r"<Function\s+\w+\[?\w*]?>"
-        )
+        test_case_pattern: re.Pattern[str] = re.compile(pattern=r"<Function\s+\w+\[?\w*]?>")
         matches: list[str] = test_case_pattern.findall(string=content)
         test_case_count: int = len(matches)
         return test_case_count
 
     @staticmethod
-    def _result_report(
-        start_time: str, elapsed_time: timedelta, test_result: dict
-    ) -> None:
+    def _result_report(start_time: str, elapsed_time: timedelta, test_result: dict) -> None:
         is_dry_run: bool = ConfigVD.Pytest.is_dry_run()
         summary_data: dict = test_result["summary"]
         total_seconds = int(elapsed_time.total_seconds())
@@ -142,12 +129,8 @@ class RunnerVD:
             passed=summary_data["passed"],
             failed=summary_data["failed"],
             error=summary_data["error"],
-            skipped=RunnerVD._get_dry_run_count()
-            if is_dry_run
-            else summary_data["skipped"],
-            total=RunnerVD._get_dry_run_count()
-            if is_dry_run
-            else summary_data["total"],
+            skipped=RunnerVD._get_dry_run_count() if is_dry_run else summary_data["skipped"],
+            total=RunnerVD._get_dry_run_count() if is_dry_run else summary_data["total"],
         )
         if not is_dry_run:
             ReportVD.write_trend_json(
@@ -186,9 +169,7 @@ class RunnerVD:
 
         end_time: datetime = datetime.now()
         elapsed_time: timedelta = end_time - time_now
-        test_result: dict[str, dict | set] = ReportVD.read_pytest_json(
-            json_path=pytest_json_report
-        )
+        test_result: dict[str, dict | set] = ReportVD.read_pytest_json(json_path=pytest_json_report)
 
         RunnerVD._result_report(
             start_time=start_time, elapsed_time=elapsed_time, test_result=test_result

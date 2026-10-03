@@ -30,11 +30,11 @@ class ConfigVD:
         @staticmethod
         def is_multi_browser() -> bool:
             return ConfigVD.get_config()["Browser"]["IsMultiBrowser"]
-        
+
         @staticmethod
         def is_delete_downloads() -> bool:
             return ConfigVD.get_config()["Browser"]["DeleteDownloads"]
-        
+
         @staticmethod
         def get_multi_browser_list() -> list[str]:
             return ConfigVD.get_config()["Browser"]["MultiBrowserList"]
@@ -60,7 +60,7 @@ class ConfigVD:
         @staticmethod
         def is_dry_run() -> bool:
             return ConfigVD.get_config()["Pytest"]["IsDryRun"]
-        
+
         @staticmethod
         def is_failure_rerun() -> bool:
             return ConfigVD.get_config()["Pytest"]["IsFailureRerun"]

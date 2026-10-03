@@ -44,9 +44,7 @@ def get_browser_list() -> list[str]:
 @allure.title(test_title="Setup / Teardown")
 @pytest.fixture(params=get_browser_list())
 def selenium(request: pytest.FixtureRequest) -> SeleniumVD:  # type: ignore
-    file_path: str = (
-        f"src/tests/{str(object=PathVD(request.node.fspath)).split('src/tests/')[1]}"
-    )
+    file_path: str = f"src/tests/{str(object=PathVD(request.node.fspath)).split('src/tests/')[1]}"
     browser_name = request.param
     method_name: str = request.node.name
     full_test_name: str = f"{file_path}::{method_name}"

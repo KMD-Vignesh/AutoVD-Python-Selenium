@@ -15,9 +15,7 @@ class MainPage(LoginPage):
     main_page_header: Locator = Locator.XPATH(
         xpath="//div[@class='header_label']/div[text()='Swag Labs']"
     )
-    product_count_xpath: Locator = Locator.XPATH(
-        xpath="//span[@class='shopping_cart_badge']"
-    )
+    product_count_xpath: Locator = Locator.XPATH(xpath="//span[@class='shopping_cart_badge']")
 
     def is_main_page_loaded(self) -> bool:
         is_present: bool = self.selenium.is_present(locator=self.main_page_header)
@@ -36,12 +34,8 @@ class MainPage(LoginPage):
         return self
 
     def get_product_count_badge(self) -> int:
-        product_count: int = int(
-            self.selenium.get_text(locator=self.product_count_xpath)
-        )
+        product_count: int = int(self.selenium.get_text(locator=self.product_count_xpath))
         self.selenium.scroll_element_xy(locator=self.main_page_header).sleep(seconds=1)
         self.selenium.allure_attach_element_screenshot(locator=self.product_count_xpath)
-        self.selenium.log(
-            message=f"Validation : Shopping Cart Badge Count = {product_count}"
-        )
+        self.selenium.log(message=f"Validation : Shopping Cart Badge Count = {product_count}")
         return product_count
