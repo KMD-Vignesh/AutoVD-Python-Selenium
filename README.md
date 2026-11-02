@@ -1,42 +1,115 @@
-# AutoVD-Python-Selenium
+<div align="center">
 
-AutoVD-Python-Selenium is a Python-based automation framework designed for web and API testing. It leverages Selenium WebDriver for browser automation and provides a structured approach to creating page objects and test cases.
+<h1>AutoVD-Python-Selenium</h1>
 
-## Author
+<p><strong>Layered UI + API test automation framework for Python</strong><br>
+Selenium · pytest · Allure · Page Objects · VD Report</p>
 
-```yaml
-Name : Vignesh D
-Location : Chennai, India
-```
+<p>
+  <a href="https://github.com/KMD-Vignesh/AutoVD-Python-Selenium"><img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12"></a>
+  <a href="https://github.com/KMD-Vignesh/AutoVD-Python-Selenium"><img src="https://img.shields.io/badge/Selenium-4.22-43B02A?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium 4.22"></a>
+  <a href="https://github.com/KMD-Vignesh/AutoVD-Python-Selenium"><img src="https://img.shields.io/badge/pytest-8.2-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" alt="pytest 8.2"></a>
+  <a href="https://github.com/KMD-Vignesh/AutoVD-Python-Selenium/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-2EA44F?style=for-the-badge" alt="MIT License"></a>
+</p>
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vigneshdhakshnamoorthy/)
+</div>
 
-## Table of Contents
+<div align="center">
 
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Creating a Page Class](#creating-a-page-class)
-  - [Writing a Test Case](#writing-a-test-case)
-- [Configuration](#configuration)
-- [Running Tests](#running-tests)
-- [VD Report](#vd-report)
-- [License](#license)
+<h3>Vignesh D</h3>
 
-## Installation
+<p><strong>Senior Software Quality Analyst</strong><br>Chennai, India</p>
 
-To use AutoVD-Python-Selenium, clone the repository and install the required dependencies:
+<p>
+  <a href="https://www.linkedin.com/in/kmd-vignesh/"><img src="https://img.shields.io/badge/LinkedIn-Vignesh%20D-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://github.com/KMD-Vignesh"><img src="https://img.shields.io/badge/GitHub-KMD--Vignesh-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+</p>
+
+<p>
+  <a href="mailto:KMD.Vignesh@outlook.com">KMD.Vignesh@outlook.com</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:VigneshDhakshnamoorthy@gmail.com">VigneshDhakshnamoorthy@gmail.com</a>
+</p>
+
+</div>
+
+## What It Is
+
+A pytest framework that keeps Selenium setup, reporting, and test data out of your tests. A fixture wires the browser, `SeleniumVD` wraps the common actions, and `runner.py` handles cleanup, parallel execution, Allure, and the VD trend report.
+
+- **One command to run** — `python runner.py` reads `vd_config.yml`, builds the pytest command, and writes every report.
+- **Chainable page objects** — `PageVD` methods return `self`, so a flow reads as one line.
+- **Config-driven runs** — tag, parallel count, browser, and headless mode live in YAML, not code.
+- **Two levels of reporting** — Allure for detail, VD Report for the current run plus trends over time.
+
+## Framework Family
+
+Seven implementations of the same layered idea. Pick the stack your team already uses; the concepts and reports stay familiar.
+
+| Framework                       | Stack                         | Covers    | Repository                                                                                  |
+| :------------------------------ | :---------------------------- | :-------- | :------------------------------------------------------------------------------------------ |
+| **Java + Selenium**             | Java 17 · Selenium 4 · TestNG | UI + REST | [AutoVD-Java-Selenium](https://github.com/KMD-Vignesh/AutoVD-Java-Selenium)                 |
+| **Java + Playwright**           | Java 17 · Playwright · TestNG | UI + REST | [AutoVD-Java-Playwright](https://github.com/KMD-Vignesh/AutoVD-Java-Playwright)             |
+| **C# + Playwright**             | C# · Playwright · NUnit       | UI        | [AutoVD-CS-Playwright](https://github.com/KMD-Vignesh/AutoVD-CS-Playwright)                 |
+| **Python + Selenium** — this repo | Python · Selenium · pytest  | UI + REST | [AutoVD-Python-Selenium](https://github.com/KMD-Vignesh/AutoVD-Python-Selenium)             |
+| **Python + Playwright**         | Python · Playwright · pytest  | UI        | [AutoVD-Python-Playwright](https://github.com/KMD-Vignesh/AutoVD-Python-Playwright)         |
+| **TypeScript + Playwright**     | TypeScript · Playwright       | UI + REST | [AutoVD-Typescript-Playwright](https://github.com/KMD-Vignesh/AutoVD-Typescript-Playwright) |
+| **TypeScript + Cypress**        | TypeScript · Cypress          | UI (E2E)  | [AutoVD-Typescript-Cypress](https://github.com/KMD-Vignesh/AutoVD-Typescript-Cypress)       |
+
+## Quick Start
+
+**Prerequisites:** Python 3.12, pip, Chrome, and the Allure CLI (`Allure.Generate` is on by default).
 
 ```bash
 git clone https://github.com/KMD-Vignesh/AutoVD-Python-Selenium.git
 cd AutoVD-Python-Selenium
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+python runner.py
 ```
 
-## Usage
+On Windows activate with `.venv\Scripts\activate`. Selenium Manager downloads the matching driver on first run.
 
-### Creating a Page Class
+Open the reports:
 
-To create a page class, define a class that inherits from `PageVD` and initialize it with a `SeleniumVD` instance. Use the `Locator` class to define locators for web elements.
+```bash
+open assets/vd_report/html/vd.html
+open assets/allure/html/index.html
+```
+
+On Linux use `xdg-open`; on Windows open the files from Explorer.
+
+## Configuration
+
+Everything runtime lives in `setting/config/vd_config.yml`.
+
+```yaml
+Pytest:
+  Tag : add_cart
+  ParallelCount : 5
+Browser:
+  IsHeadless : false
+  DefaultBrowser : Chrome
+```
+
+| Key | Default | What it does |
+| :--- | :--- | :--- |
+| `Pytest.Tag` | `add_cart` | pytest marker to run; leave empty to run everything |
+| `Pytest.ParallelCount` | `5` | `pytest-xdist` worker count |
+| `Pytest.IsDryRun` | `false` | Collect tests without running them |
+| `Pytest.IsFailureRerun` | `false` | Rerun only the failures from the last run |
+| `Browser.IsHeadless` | `false` | Run without a visible window |
+| `Browser.DefaultBrowser` | `Chrome` | Chrome, Firefox, Edge, or Safari |
+| `Browser.IsMultiBrowser` | `false` | Run each test once per browser in `MultiBrowserList` |
+| `Allure.Generate` | `true` | Build the Allure HTML report |
+| `URL.*` / `Credentials.*` | SauceDemo values | Base URLs and login data used by tests |
+
+Test markers are declared in `pytest.ini`: `vignesh`, `add_cart`, `remove_cart`, `sel_dev`.
+
+## Writing Tests
+
+A page object extends `PageVD` and declares `Locator` fields:
 
 ```python
 from dataclasses import dataclass
@@ -46,11 +119,9 @@ from library.helper.vd_selenium import SeleniumVD
 from library.interface.vd_page import PageVD
 from library.model.vd_class import Locator
 
+
 @dataclass
 class LoginPage(PageVD):
-    def __init__(self, selenium: SeleniumVD) -> None:
-        super().__init__(selenium=selenium)
-
     username_input: Locator = Locator.ID(id="user-name")
     password_input: Locator = Locator.ID(id="password")
     login_button: Locator = Locator.ID(id="login-button")
@@ -59,22 +130,18 @@ class LoginPage(PageVD):
         self.selenium.type(locator=self.username_input, type_value=username)
         self.selenium.type(locator=self.password_input, type_value=password)
         self.selenium.click(locator=self.login_button)
-        self.selenium.log(message="Action : Logged into Application")
         return self
 ```
 
-### Writing a Test Case
-
-To write a test case, use the `pytest` framework and import your page classes. Initialize the page class with a `SeleniumVD` instance and define your test logic.
+A test takes the generated `selenium` fixture and chains the page:
 
 ```python
 import pytest
 from pages.sauce_lab.main_page import MainPage
-
 from library.helper.vd_selenium import SeleniumVD
 from library.model.vd_config import ConfigVD
 
-@pytest.mark.vignesh
+
 @pytest.mark.add_cart
 def test_add_cart_badge_validation(selenium: SeleniumVD) -> None:
     main_page = MainPage(selenium=selenium)
@@ -83,72 +150,86 @@ def test_add_cart_badge_validation(selenium: SeleniumVD) -> None:
         password=ConfigVD.Credentials.get(key="Password"),
     ).assert_true(condition=main_page.is_main_page_loaded()).add_cart_product(
         product_name="Sauce Labs Bike Light"
-    ).assert_true(condition=main_page.get_product_count_badge() == 1).add_cart_product(
-        product_name="Sauce Labs Backpack"
-    ).assert_true(condition=main_page.get_product_count_badge() == 2).add_cart_product(
-        product_name="Sauce Labs Onesie"
-    ).assert_true(condition=main_page.get_product_count_badge() == 3)
+    ).assert_true(condition=main_page.get_product_count_badge() == 1)
 ```
 
-## Configuration
+The `selenium` fixture is defined in `library/interface/vd_base.py`; `runner.py` generates a one-line `conftest.py` that exposes it, then removes it after the run (`DeleteConftest`).
 
-Configurations such as URLs and credentials are managed through the `vd_config.yml`(setting/config/vd_config.yml). Ensure you have a configuration file
+## Framework Map
 
-```yaml
-Project:
-  ProjectName : SauceLab
+Read these in order. Everything else supports them.
 
-Pytest:
-  IsDryRun : false
-  IsFailureRerun : false
-  ParallelCount : 5
-  IsParallelGroupFile : false
-  DeleteConftest : true
-  Tag : add_cart
+| Package | Key classes | What it does |
+| :--- | :--- | :--- |
+| `library/interface` | `vd_base.py`, `PageVD` | Browser fixture, pytest hooks, page-object base. **Start here.** |
+| `library/composer` | `RunnerVD`, `PathVD` | Builds the pytest command, cleans artifacts, resolves every path |
+| `library/helper` | `SeleniumVD`, `ApiVD` | Browser actions and REST calls |
+| `library/model` | `ConfigVD`, `Locator`, `ValueVD` | Config access and locator types |
+| `library/plugin` | `BrowserVD`, `ReportVD` | Driver lifecycle and VD report generation |
+| `src/pages` | `LoginPage`, `MainPage`, `SelDevPage` | Page objects |
+| `src/tests` | `add_cart.py`, `remove_cart.py`, `sel_dev.py` | Tests |
+| `setting/config` | `vd_config.yml` | Runtime settings |
 
-Browser:
-  IsHeadless : false
-  DefaultBrowser : Chrome
-  IsMultiBrowser : false
-  DeleteDownloads : true
-  MultiBrowserList : 
-    - Chrome
-    - Firefox
-    - Edge
-    - Safari
+A few things carry most of the work:
 
-Allure:
-  Generate : true
-  AutoOpenServer : false
+| Item | Use |
+| :--- | :--- |
+| `SeleniumVD.open(url)` | Navigate |
+| `SeleniumVD.type/click/get_text` | Interact with a `Locator` |
+| `SeleniumVD.assert_true(...)` | Assert and report in one step |
+| `SeleniumVD.log(...)` | Add a step to the report |
+| `ConfigVD.URL.get(key=...)` | Read a URL or credential from YAML |
+| `PageVD` | Base class for page objects |
 
-URL:
-  SauceLab : https://saucedemo.com
-  SelDev : https://www.selenium.dev/downloads/
+## How a Run Works
 
-Credentials:
-  UserName : standard_user
-  Password : secret_sauce
+1. `runner.py` creates the temporary `conftest.py` and cleans old downloads and reports.
+2. It builds the pytest command from `vd_config.yml`: tag, parallel workers, Allure, HTML, JSON, and JUnit XML.
+3. pytest runs the tagged tests; the fixture starts and stops a browser per test.
+4. Allure generates its HTML report; the temporary conftest and caches are removed.
+5. `ReportVD` writes `vd.html`, `trend.html`, and their JSON files to `assets/vd_report/`.
 
+## Project Layout
 
+```text
+AutoVD-Python-Selenium/
+├── runner.py                    # entry point: python runner.py
+├── pytest.ini                   # markers and test paths
+├── requirements.txt             # pinned dependencies
+├── setting/config/vd_config.yml # runtime configuration
+├── library/                     # framework: composer, helper, interface, model, plugin
+├── src/pages/                   # page objects
+├── src/tests/                   # tests
+└── assets/                      # generated: VD report, Allure, pytest, downloads
 ```
 
-## Running Tests
+`assets/` is generated output and is recreated by the runner.
 
-To run your tests, use the `pytest` command:
+## Reports
 
-```bash
-python runner.py
-```
+| Output | Location |
+| :--- | :--- |
+| VD current report | `assets/vd_report/html/vd.html` |
+| VD trend report | `assets/vd_report/html/trend.html` |
+| VD data / failures | `assets/vd_report/json/` |
+| Failure screenshots | `assets/vd_report/screenshot/` |
+| Allure HTML | `assets/allure/html/index.html` |
+| pytest HTML | `assets/pytest/html/pytest.html` |
+| pytest JSON / XML | `assets/pytest/json/pytest.json`, `assets/pytest/xml/pytest.xml` |
 
-## VD Report
+The trend report keeps history, so you can compare runs by date and time.
 
-The framework generates two types of reports:
+## Troubleshooting
 
-1. **Current Execution Report**: A detailed report of the most recent test execution.
-2. **Trend Report**: A report showing trends over time, allowing you to filter results by date and time for detailed analysis.
-
-![VD Trends](vd_trends.gif)
+| Symptom | Fix |
+| :--- | :--- |
+| No tests run | Check `Pytest.Tag`; it must match a marker in `pytest.ini`. Leave it empty to run all. |
+| `allure: command not found` | Install the Allure CLI, or set `Allure.Generate: false`. |
+| Browser does not start | Install Chrome/Firefox, or switch `DefaultBrowser`. Selenium Manager fetches the driver. |
+| Tests run with a visible browser in CI | Set `Browser.IsHeadless: true`. |
+| `conftest.py` is missing | It is generated per run by `runner.py`; use the runner, not bare `pytest`. |
+| Old screenshots or downloads remain | The runner cleans downloads and report folders at the start; check `DeleteDownloads`. |
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+MIT. See [`LICENSE`](LICENSE).
